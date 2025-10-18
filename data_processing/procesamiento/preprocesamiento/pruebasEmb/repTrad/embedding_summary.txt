@@ -1,0 +1,5 @@
+Shape: (5160, 104149)
+Sparsity: 0.002787
+Top comunes: year, company, num, ai, __percent__, market, stock, new, share, high
+Top raros: zuckerberg year, zuckerberg widely, zuckerberg wednesday, zuckerberg time, zuckerberg talk, gpu operate, zuckerberg recognition, zuckerberg recently, zuckerberg quickly, zuckerberg pull
+Ejemplo doc 0: autumn budget, ons, autumn, unemployment, fall num, estimate number, number, num july, vacancy, continue sign
