@@ -3,3 +3,5 @@ pandas             2.3.2
 nltk               3.9.2
 scikit-learn       1.6.1
 topic-wizard       1.1.4
+transformers      4.41.2
+torch             2.2.1
