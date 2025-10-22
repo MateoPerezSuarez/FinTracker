@@ -4,9 +4,10 @@ from sklearn.decomposition import NMF
 from sklearn.feature_extraction.text import CountVectorizer
 from topicwizard.pipeline import make_topic_pipeline
 import topicwizard
+import joblib
 import re
 
-df = pd.read_csv("data_processing/finnhubAPI/data/porEmpresas/definitivos/INDEX_ALL_scrapped_filtrado.csv")
+df = pd.read_csv("data/porEmpresas/definitivos/INDEX_ALL_scrapped_filtrado.csv")
 print(len(df))
 
 lemmatizer = WordNetLemmatizer()
@@ -30,8 +31,12 @@ nmf = NMF(n_components=5, random_state=42)
 # Create a pipeline
 topic_pipeline = make_topic_pipeline(cv, nmf, pandas_out=True)
 topic_pipeline.fit(texts)
+# Guardar el pipeline entrenado
+joblib.dump(topic_pipeline, "src/modelos/topic_pipeline.joblib")
 
 topic_vectors = topic_pipeline.transform(texts)
 df["topic"] = topic_vectors.idxmax(axis=1)
 
-df.to_csv("data_processing/finnhubAPI/data/porEmpresas/definitivos/INDEX_ALL_scrapped_filtrado.csv", index=False)
+topicwizard.visualize(texts, model=topic_pipeline)
+
+df.to_csv("data/porEmpresas/definitivos/INDEX_ALL_scrapped_filtrado.csv", index=False)
