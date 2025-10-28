@@ -39,4 +39,4 @@ df["topic"] = topic_vectors.idxmax(axis=1)
 
 topicwizard.visualize(texts, model=topic_pipeline)
 
-df.to_csv("data/porEmpresas/definitivos/INDEX_ALL_scrapped_filtrado.csv", index=False)
+df.to_csv("data/definitivos/INDEX_ALL_scrapped_filtrado.csv", index=False)
