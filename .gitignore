@@ -5,3 +5,4 @@ data_processing/finhubAPI/pruebas/
 data/external/glove.6B.300d.txt
 src/Representacion_del_lenguaje/instalaciones/instalacionesglove.6B
 src/Representacion_del_lenguaje/embeddings
+elmoEnv/
