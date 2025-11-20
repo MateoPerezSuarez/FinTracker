@@ -32,7 +32,7 @@ nmf = NMF(n_components=5, random_state=42)
 topic_pipeline = make_topic_pipeline(cv, nmf, pandas_out=True)
 topic_pipeline.fit(texts)
 # Guardar el pipeline entrenado
-joblib.dump(topic_pipeline, "src/modelos/topic_pipeline.joblib")
+joblib.dump(topic_pipeline, "src/models/topic_pipeline.joblib")
 
 topic_vectors = topic_pipeline.transform(texts)
 df["topic"] = topic_vectors.idxmax(axis=1)

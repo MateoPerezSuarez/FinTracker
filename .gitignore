@@ -1,8 +1,14 @@
 ftenv/
+inigoPena/
 api_key.txt
 data_processing/draft*
 data_processing/finhubAPI/pruebas/
 data/external/glove.6B.300d.txt
 src/Representacion_del_lenguaje/instalaciones/instalacionesglove.6B
-src/Representacion_del_lenguaje/embeddings
 elmoEnv/
+file_system_backend/
+*file_system_backend/
+**file_system_backend/
+__pycache__/
+*/__pycache__/
+**/__pycache__/
