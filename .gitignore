@@ -12,3 +12,5 @@ file_system_backend/
 __pycache__/
 */__pycache__/
 **/__pycache__/
+__tmp_cells.txt
+__tmp_out.txt
