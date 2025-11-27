@@ -14,3 +14,4 @@ __pycache__/
 **/__pycache__/
 __tmp_cells.txt
 __tmp_out.txt
+src/models/GoogleNews-vectors-negative300.bin.gz
