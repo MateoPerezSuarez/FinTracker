@@ -1,7 +1,3 @@
-"""
-Seq2Seq Summarization with BERT Embeddings (Fine-tuning)
-Fine-tuning version
-"""
 
 import torch
 import torch.nn as nn

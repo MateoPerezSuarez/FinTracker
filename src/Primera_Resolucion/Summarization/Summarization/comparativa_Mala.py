@@ -1,19 +1,3 @@
-"""
-Comparación Exhaustiva de Embeddings para Seq2Seq Summarization
-
-Este script compara:
-1. Embeddings No-Contextuales (FastText):
-   - Frozen (congelado)
-   - Fine-tuned (ajustado durante entrenamiento)
-   - From scratch (inicializado aleatoriamente)
-
-2. Embeddings Contextuales (BERT):
-   - Frozen (congelado)
-   - Fine-tuned (ajustado durante entrenamiento)
-
-Cumple con los requisitos de comparar diferentes tipos de embeddings
-y estrategias de fine-tuning.
-"""
 
 import torch
 import torch.nn as nn

@@ -1,7 +1,3 @@
-"""
-Seq2Seq Summarization with BERT Embeddings (Frozen)
-Alternative version using contextual BERT embeddings
-"""
 
 import torch
 import torch.nn as nn

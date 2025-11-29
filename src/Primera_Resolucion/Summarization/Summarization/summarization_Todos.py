@@ -1,8 +1,3 @@
-"""
-Seq2Seq Summarization with Attention
-Generates short headlines (10-20 tokens) from news articles
-Compares FastText (non-contextual) vs BERT (contextual) embeddings
-"""
 
 import torch
 import torch.nn as nn
