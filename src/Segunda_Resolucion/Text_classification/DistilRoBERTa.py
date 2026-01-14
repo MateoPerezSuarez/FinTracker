@@ -15,15 +15,19 @@ from transformers import (
 )
 
 # =========================
-# Configuración
+# Configuración de las rutas para el modelo
 # =========================
 TRAIN_CSV = "data/definitivos/splits/train.csv"
 LABEL_ENCODER_PATH = "data/definitivos/splits/label_encoder.joblib"
 
+
+# Como se menciona en el report usamos el modelo distilroberta-base
 MODEL_NAME = "distilroberta-base"
-OUTPUT_DIR = "src/Segunda_Resolucion/Text_classification/models/distilroberta_topicclf"   # carpeta donde se guardará todo
+OUTPUT_DIR = "src/Segunda_Resolucion/Text_classification/models/distilroberta_topicclf"
 VAL_SIZE = 0.1
 RANDOM_STATE = 42
+
+#Asignamos un valor de 5 labels, porque son las 5 categorias que hemos definido en el proyecto y hay que finetunearlo a ello
 NUM_LABELS = 5
 
 # =========================
@@ -52,11 +56,10 @@ class FinanceDataset(torch.utils.data.Dataset):
         return len(self.labels)
 
 # =========================
-# 1) Cargar datos
+# 1) Cargar nuestros datos
 # =========================
 df = pd.read_csv(TRAIN_CSV)
 
-# Asegurar que existen columnas esperadas
 if "text_input" not in df.columns:
     df["text_input"] = df["headline"].fillna("") + " " + df["summary"].fillna("")
 
@@ -67,7 +70,7 @@ texts = df["text_input"].astype(str).tolist()
 labels = df["label"].astype(int).tolist()
 
 # =========================
-# 2) Split TRAIN/VAL (desde TRAIN)
+# 2) Spliteamos los datos de train para tener conjunto de validación también
 # =========================
 train_texts, val_texts, train_labels, val_labels = train_test_split(
     texts,
@@ -78,7 +81,7 @@ train_texts, val_texts, train_labels, val_labels = train_test_split(
 )
 
 # =========================
-# 3) Tokenización
+# 3) Tokenización ( usamos el mismo !!!! no tocar esto)
 # =========================
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
@@ -106,7 +109,6 @@ model = AutoModelForSequenceClassification.from_pretrained(
 
 # =========================
 # 5) TrainingArguments
-# OJO: en transformers nuevos es eval_strategy (no evaluation_strategy)
 # =========================
 training_args = TrainingArguments(
     output_dir=os.path.join(OUTPUT_DIR, "checkpoints"),
@@ -116,6 +118,7 @@ training_args = TrainingArguments(
     gradient_accumulation_steps=2,
     learning_rate=4e-5,
     weight_decay=0.01,
+#Ya está solucionado el error que nos daba era el eval_strategy que se llama diferente al parecer
     eval_strategy="epoch",
     save_strategy="epoch",
     load_best_model_at_end=True,
@@ -123,8 +126,10 @@ training_args = TrainingArguments(
     greater_is_better=True,
     logging_dir=os.path.join(OUTPUT_DIR, "logs"),
     logging_steps=50,
-    report_to="none",  # evita integrar con wandb por defecto
+    report_to="none",
 )
+
+# No tocar que son los mejores resultados
 
 trainer = Trainer(
     model=model,
@@ -148,7 +153,7 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 trainer.save_model(OUTPUT_DIR)          # modelo + config
 tokenizer.save_pretrained(OUTPUT_DIR)   # tokenizer
 
-# Guarda también el label encoder (copiándolo al dir del modelo)
+# Guardamos el label encoder (copiándolo al dir del modelo)
 le = joblib.load(LABEL_ENCODER_PATH)
 joblib.dump(le, os.path.join(OUTPUT_DIR, "label_encoder.joblib"))
 
